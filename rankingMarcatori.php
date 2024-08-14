@@ -46,7 +46,7 @@ function calculateUserRankings($conn, $topScorers) {
 
     $userRankings = [];
 
-    $sql = "SELECT * FROM predictionsMarcatori";
+    $sql = "SELECT * FROM predictionsmarcatori";
     $result = $conn->query($sql);
 
     if (!$result) {

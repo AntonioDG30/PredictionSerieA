@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // Recupera tutte le previsioni dal database
 $sql = "SELECT *
-        FROM predictionsMarcatori ORDER BY created_at DESC";
+        FROM predictionsmarcatori ORDER BY created_at DESC";
 $result = $conn->query($sql);
 ?>
 

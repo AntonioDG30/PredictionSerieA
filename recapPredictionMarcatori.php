@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // Recupera i dati del record
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$sql = "SELECT * FROM predictionsMarcatori WHERE id = ?";
+$sql = "SELECT * FROM predictionsmarcatori WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();

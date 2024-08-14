@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepara la query SQL per inserire i dati
-    $sql = "INSERT INTO predictionsMarcatori (
+    $sql = "INSERT INTO predictionsmarcatori (
         first_name, last_name, email, 
         scorer1, scorer2, scorer3, scorer4, scorer5,
         season, created_at
