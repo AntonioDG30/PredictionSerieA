@@ -1,5 +1,7 @@
-CREATE DATABASE seria_a_predictions;
-USE seria_a_predictions;
+CREATE DATABASE my_predictionseriea
+;
+USE my_predictionseriea
+;
 
 DROP TABLE IF EXISTS `predictions`;
 CREATE TABLE IF NOT EXISTS `predictions` (
@@ -29,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `predictions` (
                                              `position18` varchar(100) DEFAULT NULL,
                                              `position19` varchar(100) DEFAULT NULL,
                                              `position20` varchar(100) DEFAULT NULL,
-                                             PRIMARY KEY (`id`),
+                                             PRIMARY KEY (`id`)
 );
 
 DROP TABLE IF EXISTS `predictionsmarcatori`;
@@ -45,5 +47,5 @@ CREATE TABLE IF NOT EXISTS `predictionsmarcatori` (
                                                       `scorer3` varchar(100) NOT NULL,
                                                       `scorer4` varchar(100) NOT NULL,
                                                       `scorer5` varchar(100) NOT NULL,
-                                                      PRIMARY KEY (`id`),
+                                                      PRIMARY KEY (`id`)
 );
