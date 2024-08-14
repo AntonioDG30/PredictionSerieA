@@ -1,7 +1,7 @@
 <?php
 include_once 'config.php';
 
-// Dati per la connessione al database
+// Dati per la connessione al database (sostituisci con le credenziali fornite da Altervista)
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -23,18 +23,38 @@ function fetchRealTimeStandings() {
     $apiKey = API_KEY;
     $url = 'https://api.football-data.org/v4/competitions/SA/standings';
 
-    $options = [
-        "http" => [
-            "header" => "X-Auth-Token: $apiKey"
-        ]
-    ];
-    $context = stream_context_create($options);
+    // Utilizzo di cURL per l'API
+    $ch = curl_init();
 
-    $response = file_get_contents($url, false, $context);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "X-Auth-Token: $apiKey",
+        "Content-Type: application/json"
+    ));
+
+    // Specifica il percorso del file CA bundle
+    curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
+
+    $response = curl_exec($ch);
+
+    if(curl_errno($ch)) {
+        echo 'Errore cURL: ' . curl_error($ch);
+        return null;
+    }
+
+    curl_close($ch);
+
     return json_decode($response, true);
 }
 
+
+
 $standings = fetchRealTimeStandings();
+
+if ($standings === null) {
+    die('Errore durante il recupero della classifica.');
+}
 
 // Funzione per calcolare la correttezza delle previsioni
 function calculatePredictionAccuracy($conn, $realStandings) {

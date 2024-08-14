@@ -1,7 +1,7 @@
 <?php
 include_once 'config.php';
 
-// Dati per la connessione al database
+// Dati per la connessione al database (sostituisci con le credenziali fornite da Altervista)
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -20,22 +20,37 @@ function fetchTopScorers() {
     $apiKey = API_KEY;
     $url = 'https://api.football-data.org/v4/competitions/SA/scorers';
 
-    $options = [
-        "http" => [
-            "header" => "X-Auth-Token: $apiKey"
-        ]
-    ];
-    $context = stream_context_create($options);
+    // Utilizzo di cURL per l'API
+    $ch = curl_init();
 
-    $response = file_get_contents($url, false, $context);
-    if ($response === FALSE) {
-        die("Errore durante il recupero dei dati dell'API.");
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "X-Auth-Token: $apiKey",
+        "Content-Type: application/json"
+    ));
+
+    // Disabilita la verifica SSL per test (non raccomandato in produzione)
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    $response = curl_exec($ch);
+
+    if(curl_errno($ch)) {
+        echo 'Errore cURL: ' . curl_error($ch);
+        return null;
     }
+
+    curl_close($ch);
+
     return json_decode($response, true);
 }
 
 // Ottieni i capocannonieri attuali
 $topScorers = fetchTopScorers();
+
+if ($topScorers === null) {
+    die('Errore durante il recupero dei dati dell\'API.');
+}
 
 // Funzione per calcolare la precisione delle previsioni degli utenti
 function calculateUserRankings($conn, $topScorers) {
