@@ -100,7 +100,7 @@
     <a href="createPredictionMarcatori.php">
         <button>Crea la tua Previsione Marcatori</button>
     </a>
-    <a href="allpredictionsmarcatori.php">
+    <a href="allPredictionsMarcatori.php">
         <button>Visualizza Tutte le Previsioni Marcatori</button>
     </a>
     <a href="predictionSerieAStatistiche.php">
