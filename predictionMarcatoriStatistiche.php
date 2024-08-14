@@ -5,7 +5,8 @@ include_once 'config.php';
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "serie_a_predictions";
+$dbname = "my_predictionseriea
+";
 
 // Creazione della connessione
 $conn = new mysqli($servername, $username, $password, $dbname);
