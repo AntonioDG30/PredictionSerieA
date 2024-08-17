@@ -74,7 +74,8 @@ function calculatePredictionAccuracy($conn, $realStandings) {
         $predictionDetails = [
             'correct' => 0,
             'wrong' => 0,
-            'total' => 0
+            'total' => 0,
+            'name' => $row["first_name"] . " " . $row["last_name"]
         ];
 
         for ($i = 1; $i <= 20; $i++) {
@@ -254,7 +255,7 @@ $report = calculatePredictionAccuracy($conn, $standings);
         $predictionNumber = 1;
         foreach ($report as $details) {
             echo "<tr>
-                    <td>Previsione $predictionNumber</td>
+                    <td>Previsione n° $predictionNumber di {$details['name']}</td>
                     <td>{$details['total']}</td>
                     <td>{$details['correct']}</td>
                     <td>{$details['wrong']}</td>

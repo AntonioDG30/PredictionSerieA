@@ -67,7 +67,7 @@ function calculateScorerPredictionAccuracy($conn, $topScorers) {
     // Calcolo dei capocannonieri reali
     $realScorers = [];
     foreach ($topScorers['scorers'] as $scorer) {
-        $realScorers[$scorer['player']['name']] = $scorer['numberOfGoals'];
+        $realScorers[$scorer['player']['name']] = $scorer['goals'];
     }
 
     // Recupera tutte le previsioni degli utenti
@@ -78,7 +78,8 @@ function calculateScorerPredictionAccuracy($conn, $topScorers) {
         $predictionDetails = [
             'correct' => 0,
             'wrong' => 0,
-            'total' => 0
+            'total' => 0,
+            'name' => $row["first_name"] . " " . $row["last_name"]
         ];
 
         for ($i = 1; $i <= 5; $i++) {
@@ -244,7 +245,7 @@ $report = calculateScorerPredictionAccuracy($conn, $topScorers);
                 echo "<tr>
                     <td>" . ($index + 1) . "</td>
                     <td>{$scorer['player']['name']}</td>
-                    <td>{$scorer['numberOfGoals']}</td>
+                    <td>{$scorer['goals']}</td>
                   </tr>";
             }
         } else {
@@ -265,7 +266,7 @@ $report = calculateScorerPredictionAccuracy($conn, $topScorers);
         $predictionNumber = 1;
         foreach ($report as $details) {
             echo "<tr>
-                <td>Previsione $predictionNumber</td>
+                <td>Previsione n° $predictionNumber di {$details['name']}</td>
                 <td>{$details['total']}</td>
                 <td>{$details['correct']}</td>
                 <td>{$details['wrong']}</td>
